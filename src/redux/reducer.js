@@ -1,5 +1,6 @@
 import { createReducer, combineReducers } from '@reduxjs/toolkit';
 import { fetchContacts, deleteContact, addContact } from './operations';
+
 import { changeFilter } from './actions';
 
 export const itemReducer = createReducer([], {
@@ -28,14 +29,13 @@ export const isLoading = createReducer(false, {
 });
 
 export const error = createReducer(null, {
-  [fetchContacts.rejected]: (_, { action }) =>
-    alert('Fetch contact error: ', action.payload),
+  [fetchContacts.rejected]: (_, { error }) => alert(error.message),
   [fetchContacts.pending]: () => null,
-  [addContact.rejected]: (_, { action }) =>
-    alert('Add contact error: ', action.payload),
+  [addContact.rejected]: (_, { error }) =>
+    alert('Add contact error: ', error.message),
   [addContact.pending]: () => null,
-  [deleteContact.rejected]: (_, { action }) =>
-    alert('Delete contact error: ', action.payload),
+  [deleteContact.rejected]: (_, { error }) =>
+    alert('Delete contact error: ', error.message),
   [deleteContact.pending]: () => null,
 });
 
